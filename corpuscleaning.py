@@ -16,12 +16,6 @@ df_korpus.isnull().sum()
 # Keine doppelten Reihen
 df_korpus.duplicated()
 
-# Datentypen korrigieren
-df_korpus.convert_dtypes(
-    infer_objects=True, convert_string=True, convert_integer=True,
-    convert_boolean=True, convert_floating=True
-)
-
 # Leerzeichen aus Spaltenüberschriften entfernen
 df_korpus.rename(columns={
     "Token": "token", "Datenquelle Token": "datenquelle_token",
@@ -47,12 +41,19 @@ df_korpus.rename(columns={
     "Anzahl Probleme Dental Lühr": "lühr_dental_probleme"
 }, inplace=True)
 
+# Datentypen korrigieren
+df_korpus.convert_dtypes(
+    infer_objects=True, convert_string=True, convert_integer=True,
+    convert_boolean=True, convert_floating=True
+)
+
+# id_idg_wurzel in object umwandeln
+df_korpus['id_idg_wurzel'] = df_korpus['id_idg_wurzel'].astype(object)
+
 # Statistische Kennwerte: Mittelwert, Standardabweichung, Min. und max.
 # Werte, Quartile
 
-#TODO id_idg_wurzel in object umwandeln, weil keine stetige numerische Variable
-#df_probleme=df_korpus.loc[:,
-# 'ringe_stammvokal_probleme':'lühr_dental_probleme']
+print(df_korpus.describe)
 
 
 kenndaten_probleme=df_korpus.ringe_stammvokal_probleme.describe(), df_korpus.lühr_stammvokal_probleme.describe()
