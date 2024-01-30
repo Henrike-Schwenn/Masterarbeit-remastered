@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import tabulate
 
 path_korpus = "C:/Users/henri/OneDrive/Dokumente/Berufseinstieg" \
               "/Projekte/Masterarbeit remastered/Korpus/" \
@@ -50,13 +52,19 @@ df_korpus.convert_dtypes(
 # id_idg_wurzel in object umwandeln
 df_korpus['id_idg_wurzel'] = df_korpus['id_idg_wurzel'].astype(object)
 
-# Statistische Kennwerte: Mittelwert, Standardabweichung, Min. und max.
-# Werte, Quartile
+# Statistische Kennwerte
+kenndaten=df_korpus.describe()
+# Kennwerte als Markdown-Tabelle ausgeben
+kenndaten_markdown=kenndaten.to_markdown()
+# Kennwerte als Boxplot
+kenndaten_boxplot=kenndaten.boxplot()
 
-print(df_korpus.describe)
 
 
-kenndaten_probleme=df_korpus.ringe_stammvokal_probleme.describe(), df_korpus.lühr_stammvokal_probleme.describe()
+
+
+#kenndaten_probleme=df_korpus.ringe_stammvokal_probleme.describe(),
+# df_korpus.lühr_stammvokal_probleme.describe()
 #print(kenndaten_probleme)
 
 
