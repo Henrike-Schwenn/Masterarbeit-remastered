@@ -53,11 +53,25 @@ df_korpus.convert_dtypes(
 df_korpus['id_idg_wurzel'] = df_korpus['id_idg_wurzel'].astype(object)
 
 # Statistische Kennwerte
-kenndaten=df_korpus.describe()
+kenndaten = df_korpus.describe()
 # Kennwerte als Markdown-Tabelle ausgeben
-kenndaten_markdown=kenndaten.to_markdown()
+kenndaten_markdown = kenndaten.to_markdown()
 # Kennwerte als Boxplot
-kenndaten_boxplot=kenndaten.boxplot()
+fig, ax = plt.subplots()
+kenndaten_boxplot = ax.boxplot(kenndaten)
+y_values = [-1, 0, 1, 2, 3]
+plt.yticks(y_values) # Werte der y-Achse festlegen
+ax.set_yticklabels(y_values)
+ax.set_ylim(min(y_values), max(y_values))
+ax.set_ylabel('Fehlerzahlen') # Achsen beschriften
+ax.set_xlabel('Fehlerkategorien')
+box_labels = ['Ringe Stammvokal Probleme', 'Ringe Stammauslaut Probleme',
+              'Ringe Dental Probleme', 'Lühr Stammvokal Probleme',
+              'Lühr Stammauslaut Probleme', 'Lühr Dental Probleme']
+tick_positions = [1, 2, 3, 4, 5, 6]
+ax.set_xticks(tick_positions)
+ax.set_xticklabels(box_labels)
+plt.show()
 
 
 
