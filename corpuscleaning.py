@@ -54,23 +54,29 @@ df_korpus['id_idg_wurzel'] = df_korpus['id_idg_wurzel'].astype(object)
 
 # Statistische Kennwerte
 kenndaten = df_korpus.describe()
+
 # Kennwerte als Markdown-Tabelle ausgeben
 kenndaten_markdown = kenndaten.to_markdown()
+
 # Kennwerte als Boxplot
 fig, ax = plt.subplots()
 kenndaten_boxplot = ax.boxplot(kenndaten)
-y_values = [-1, 0, 1, 2, 3]
+y_values = [0, 1, 2, 3]
 plt.yticks(y_values) # Werte der y-Achse festlegen
 ax.set_yticklabels(y_values)
 ax.set_ylim(min(y_values), max(y_values))
 ax.set_ylabel('Fehlerzahlen') # Achsen beschriften
 ax.set_xlabel('Fehlerkategorien')
-box_labels = ['Ringe Stammvokal Probleme', 'Ringe Stammauslaut Probleme',
-              'Ringe Dental Probleme', 'Lühr Stammvokal Probleme',
-              'Lühr Stammauslaut Probleme', 'Lühr Dental Probleme']
+box_labels = ['Ringe\nStammvokal\nProbleme', 'Ringe\nStammauslaut\nProbleme',
+              'Ringe\nDental\nProbleme', 'Lühr\nStammvokal\nProbleme',
+              'Lühr\nStammauslaut\nProbleme', 'Lühr\nDental\nProbleme']
 tick_positions = [1, 2, 3, 4, 5, 6]
 ax.set_xticks(tick_positions)
-ax.set_xticklabels(box_labels)
+ax.set_xticklabels(box_labels) # Boxen beschriften
+plt.show()
+
+# Histogramm mit Häufigkeitsverteilung der Kennwerte
+fehlerverteilung = plt.hist(df_korpus.ringe_stammvokal_probleme, bins=3)
 plt.show()
 
 
